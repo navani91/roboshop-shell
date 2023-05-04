@@ -4,7 +4,6 @@
 ZONE_ID="Z064060926SK6NII7Q63U"
 DOMAIN="navanidevops.online"
 SG_NAME="allow-all"
-env=dev
 #############################
 
 
@@ -44,6 +43,6 @@ fi
 
 
 for component in catalogue cart user shipping payment frontend mongodb mysql rabbitmq redis dispatch; do
-  COMPONENT="${component}
+  COMPONENT="${component}"
   create_ec2
 done
