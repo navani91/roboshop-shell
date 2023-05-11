@@ -2,7 +2,11 @@ source common.sh
 
 print_head "installing nginx"
 yum install nginx -y &>>${log_file}
-echo $?
+if [ $? -eq 0 ]; then
+  echo SUCCESS
+else
+  echo FAILURE
+fi
 
 print_head "removing old content"
 rm -rf /usr/share/nginx/html/* &>>${log_file}
@@ -10,11 +14,6 @@ echo $?
 
 print_head "downloading frontend content"
 curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip &>>${log_file}
-if [ $? -eq 0 ]; then
-  echo SUCCESS
-else
-  echo FAILURE
-fi
 
 print_head "extracting downloaded frontend"
 cd /usr/share/nginx/html
