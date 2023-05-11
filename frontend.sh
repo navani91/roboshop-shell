@@ -14,6 +14,7 @@ echo $?
 
 print_head "downloading frontend content"
 curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip &>>${log_file}
+echo $?
 
 print_head "extracting downloaded frontend"
 cd /usr/share/nginx/html
