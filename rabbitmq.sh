@@ -2,7 +2,7 @@ source common.sh
 
 roboshop_app_password=$1
 if [ -z "${roboshop_app_password}" ]; then
-  echo -e "\e[31m Missing My SQL Root Password argument\e[om"
+  echo -e "\e[31m Missing RabbitMQ App User Password argument\e[om"
   exit 1
   fi
 
@@ -23,7 +23,10 @@ systemctl start rabbitmq-server &>>${log_file}
 status_check $?
 
 print_head "Add Appilication User"
-rabbitmqctl add_user roboshop ${roboshop_app_password} &>>${log_file}
+rabbitmqctl list_users | grep roboshop &>>${log_file}
+if [ $? -ne 0 ]; then
+ rabbitmqctl add_user roboshop ${roboshop_app_password} &>>${log_file}
+fi
 status_check $?
 
 print_head "Configure Permissions for App User"
