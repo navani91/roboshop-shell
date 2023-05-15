@@ -8,3 +8,4 @@ if [ -z "${roboshop_app_password}" ]; then
 
 component=catalogue
 python
+
