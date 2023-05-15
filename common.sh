@@ -16,6 +16,7 @@ status_check() {
   fi
 }
 
+NODEJS
 print_head "Configure NodeJS REPO"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log_file}
 status_check $?
@@ -42,12 +43,12 @@ rm -rf /app/* &>>${log_file}
 status_check $?
 
 print_head "Downloading App Content"
-curl -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user.zip &>>${log_file}
+curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log_file}
 status_check $?
 cd /app
 
 print_head "Extracting App Content"
-unzip /tmp/user.zip &>>${log_file}
+unzip /tmp/${component}.zip &>>${log_file}
 status_check $?
 
 print_head "Installing NodeJS Dependencies"
@@ -55,19 +56,19 @@ npm install &>>${log_file}
 status_check $?
 
 print_head "Copying SystemD service file"
-cp ${code_dir}/configs/user.service /etc/systemd/system/user.service &>>${log_file}
+cp ${code_dir}/configs/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
 status_check $?
 
 print_head " reload systemd"
 systemctl daemon-reload &>>${log_file}
 status_check $?
 
-print_head "Enable user service"
-systemctl enable user &>>${log_file}
+print_head "Enable ${component} service"
+systemctl enable ${component} &>>${log_file}
 status_check $?
 
-print_head "Start user Service"
-systemctl start user &>>${log_file}
+print_head "Start ${component} Service"
+systemctl start ${component} &>>${log_file}
 status_check $?
 
 print_head " Copy mongoDB Repo File"
@@ -79,6 +80,6 @@ yum install mongodb-org-shell -y &>>${log_file}
 status_check $?
 
 print_head "load schema"
-mongo --host mongodb.navanidevops.online </app/schema/user.js &>>${log_file}
+mongo --host mongodb.navanidevops.online </app/schema/${component}.js &>>${log_file}
 status_check $?
 
