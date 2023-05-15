@@ -53,40 +53,40 @@ if [ ! -d/app ]; then
 fi
 status_check $?
 
-print_head "Delete Old Content"
-rm -rf /app/* &>>${log_file}
-status_check $?
+ print_head "Delete Old Content"
+ rm -rf /app/* &>>${log_file}
+ status_check $?
 
-print_head "Downloading App Content"
-curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log_file}
-status_check $?
-cd /app
+ print_head "Downloading App Content"
+ curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log_file}
+ status_check $?
+ cd /app
 
-print_head "Extracting App Content"
-unzip /tmp/${component}.zip &>>${log_file}
-status_check $?
+ print_head "Extracting App Content"
+ unzip /tmp/${component}.zip &>>${log_file}
+ status_check $?
 
-print_head "Installing NodeJS Dependencies"
-npm install &>>${log_file}
-status_check $?
+ print_head "Installing NodeJS Dependencies"
+ npm install &>>${log_file}
+ status_check $?
 
-print_head "Copying SystemD service file"
-cp ${code_dir}/configs/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
-status_check $?
+ print_head "Copying SystemD service file"
+ cp ${code_dir}/configs/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
+ status_check $?
 
-print_head " reload systemd"
-systemctl daemon-reload &>>${log_file}
-status_check $?
+ print_head " reload systemd"
+ systemctl daemon-reload &>>${log_file}
+ status_check $?
 
-print_head "Enable ${component} service"
-systemctl enable ${component} &>>${log_file}
-status_check $?
+ print_head "Enable ${component} service"
+ systemctl enable ${component} &>>${log_file}
+ status_check $?
 
-print_head "Start ${component} Service"
-systemctl start ${component} &>>${log_file}
-status_check $?
+ print_head "Start ${component} Service"
+ systemctl start ${component} &>>${log_file}
+ status_check $?
 
-schema_setup
+ schema_setup
 
 }
 
