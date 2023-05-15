@@ -16,7 +16,7 @@ status_check() {
   fi
 }
 
-NODEJS
+NODEJS() {
 print_head "Configure NodeJS REPO"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log_file}
 status_check $?
@@ -82,4 +82,5 @@ status_check $?
 print_head "load schema"
 mongo --host mongodb.navanidevops.online </app/schema/${component}.js &>>${log_file}
 status_check $?
+}
 
