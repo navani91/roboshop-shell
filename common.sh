@@ -29,7 +29,6 @@ schema_setup() {
    print_head "Load Schema"
    mongo --host mongodb.navanidevop.online &>>${log_file}
    status_check $?
-}
 
 nodejs() {
 print_head "Configure NodeJS REPO"
