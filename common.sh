@@ -15,10 +15,11 @@ status_check() {
     exit 1
   fi
 }
-systend_setup() {
+systemD_setup() {
   print_head "Copying SystemD service file"
    cp ${code_dir}/configs/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
    status_check $?
+ sed -i -e "s/ROBOSHOP_USER_PASSWORD/${roboshop_app_password}/" /etc/systemd/system/${component}.service &>>${log_file}
 
    print_head " reload systemd"
    systemctl daemon-reload &>>${log_file}
