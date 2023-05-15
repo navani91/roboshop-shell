@@ -16,7 +16,10 @@ status_check() {
   fi
 }
 
-NODEJS() {
+schema_setup
+
+nodejs() {
+
 print_head "Configure NodeJS REPO"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log_file}
 status_check $?
@@ -71,17 +74,7 @@ print_head "Start ${component} Service"
 systemctl start ${component} &>>${log_file}
 status_check $?
 
-print_head " Copy mongoDB Repo File"
-cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongo.repo &>>${log_file}
-status_check $?
-
-print_head "Install mongo Client"
-yum install mongodb-org-shell -y &>>${log_file}
-status_check $?
-
-print_head "load schema"
-mongo --host mongodb.navanidevops.online </app/schema/${component}.js &>>${log_file}
-status_check $?
+schema_setup
 
 }
 
