@@ -18,17 +18,17 @@ status_check() {
 
 schema_setup() {
   if [ "${schema_type}" == "mongo" ]; then
-  prinet_head "copy mongoDB Repo File"
-  cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
-  status_check $?
+   prinet_head "copy mongoDB Repo File"
+   cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
+   status_check $?
 
-  prinet_head "Install Mongo Client"
-  yum install mongodb-org-shell -y &>>${log_file}
-  status_check $?
+   prinet_head "Install Mongo Client"
+   yum install mongodb-org-shell -y &>>${log_file}
+   status_check $?
 
-  print_head "Load Schema"
-  mongo --host mongodb.navanidevop.online &>>${log_file}
-  status_check $?
+   print_head "Load Schema"
+   mongo --host mongodb.navanidevop.online &>>${log_file}
+   status_check $?
 }
 
 nodejs() {
@@ -91,4 +91,3 @@ schema_setup
 }
 
 
-}
