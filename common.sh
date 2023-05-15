@@ -87,4 +87,5 @@ systemctl start ${component} &>>${log_file}
 status_check $?
 
 schema_setup
+
 }
