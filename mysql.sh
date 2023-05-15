@@ -30,3 +30,4 @@ print_head "Set Root Password"
 mysql_secure_installation --set-root-pass RoboShop@1 &>>${log_file}
 status_check $?
 
+
