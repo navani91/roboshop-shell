@@ -30,7 +30,6 @@ schema_setup() {
   mongo --host mongodb.navanidevop.online &>>${log_file}
   status_check $?
  f1
-
 }
 
 nodejs() {
